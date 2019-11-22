@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.alvinspace.cn">
-  <title>Archives | Alvin个人学习记录</title>
+  <title>Linux的进程调度策略 | Alvin个人学习记录</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="个人空间">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Alvin个人学习记录">
-<meta property="og:url" content="https:&#x2F;&#x2F;www.alvinspace.cn&#x2F;archives&#x2F;index.html">
+  <meta name="description" content="在多任务系统中，进程调度是CPU管理的一项核心工作。 抢占式和非抢占式1.抢占式　　由调度程序决定什么时候停止一个进程的运行，切换其他进程运行。 　　现代操作系统大多采用这种模式。 2.非抢占式　　由正在运行的进程自己主动放弃CPU。 　　早期多任务系统的调度模式。">
+<meta name="keywords" content="操作系统,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux的进程调度策略">
+<meta property="og:url" content="https:&#x2F;&#x2F;www.alvinspace.cn&#x2F;2019&#x2F;11&#x2F;22&#x2F;Linux%E7%9A%84%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5&#x2F;index.html">
 <meta property="og:site_name" content="Alvin个人学习记录">
-<meta property="og:description" content="个人空间">
+<meta property="og:description" content="在多任务系统中，进程调度是CPU管理的一项核心工作。 抢占式和非抢占式1.抢占式　　由调度程序决定什么时候停止一个进程的运行，切换其他进程运行。 　　现代操作系统大多采用这种模式。 2.非抢占式　　由正在运行的进程自己主动放弃CPU。 　　早期多任务系统的调度模式。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-22T11:24:29.319Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Alvin个人学习记录" type="application/atom+xml">
@@ -196,41 +198,120 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Linux的进程调度策略" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+    <h1 class="article-title" itemprop="name">
+      Linux的进程调度策略
+    </h1>
+  
+
+
+  
+  
+        
+        <span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+              <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+        </span>
+
 <a href="/2019/11/22/Linux%E7%9A%84%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5/" class="archive-article-date">
         <time datetime="2019-11-22T11:16:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
 </a>
 
-        </div>
-    	 
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/11/22/Linux%E7%9A%84%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5/">Linux的进程调度策略</a>
-	
-    </h1>
   
+    
+<div style="margin-top:10px;">
+  <span class="post-time">
+    <span class="post-meta-item-icon">
+      <!-- fonts.scss -->
+      <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
+      <i class="icon-statistics"></i>
+      <span class="post-meta-item-text"> 字数统计:</span>
+      <span class="post-count">969字</span>
+    </span>
+  </span>
+
+  <span class="post-time">
+    &nbsp; | &nbsp;
+    <span class="post-meta-item-icon">
+      <i class="icon-book icon"></i>
+      <span class="post-meta-item-text"> 阅读时长≈</span>
+      <span class="post-count">3分</span>
+    </span>
+  </span>
+</div>
 
 
-        <div class="article-info info-on-right">
-          
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>　　在多任务系统中，进程调度是CPU管理的一项核心工作。</p>
+<h1 id="抢占式和非抢占式"><a href="#抢占式和非抢占式" class="headerlink" title="抢占式和非抢占式"></a>抢占式和非抢占式</h1><h3 id="1-抢占式"><a href="#1-抢占式" class="headerlink" title="1.抢占式"></a>1.抢占式</h3><p>　　由调度程序决定什么时候停止一个进程的运行，切换其他进程运行。</p>
+<p>　　<strong>现代操作系统大多采用这种模式。</strong></p>
+<h3 id="2-非抢占式"><a href="#2-非抢占式" class="headerlink" title="2.非抢占式"></a>2.非抢占式</h3><p>　　由正在运行的进程自己主动放弃CPU。</p>
+<p>　　早期多任务系统的调度模式。</p>
+<a id="more"></a>
+<h1 id="调度信息"><a href="#调度信息" class="headerlink" title="调度信息"></a>调度信息</h1><h2 id="进程分类"><a href="#进程分类" class="headerlink" title="进程分类"></a>进程分类</h2><h3 id="1-实时进程"><a href="#1-实时进程" class="headerlink" title="1.实时进程"></a>1.实时进程</h3><p>　　对响应时间要求很高的进程，如视频播放、机器人控制、实时数据采集等要求系统即时响应的进程，和交互式进程如Shell、文本编辑等需要系统及时响应的进程。</p>
+<p>　　系统优先响应他们对CPU的要求。</p>
+<h3 id="2-普通进程"><a href="#2-普通进程" class="headerlink" title="2.普通进程"></a>2.普通进程</h3><p>　　后台批处理如系统清理、银行轧帐等允许延缓响应的进程。</p>
+<h2 id="优先级"><a href="#优先级" class="headerlink" title="优先级"></a>优先级</h2><h3 id="1-实时优先级"><a href="#1-实时优先级" class="headerlink" title="1.实时优先级"></a>1.实时优先级</h3><p>　　实时进程的优先级。</p>
+<p>　　取值范围：1~99（数值越小，优先级越高）</p>
+<h3 id="2-静态优先级"><a href="#2-静态优先级" class="headerlink" title="2.静态优先级"></a>2.静态优先级</h3><p>　　进程的基本优先级。</p>
+<p>　　进程创建之初赋予。</p>
+<p>　　即“nice数”。</p>
+<p>　　计算时间片的依据。</p>
+<p>　　取值范围：100~139（数值越小，优先级越高），默认120。</p>
+<h3 id="3-动态优先级"><a href="#3-动态优先级" class="headerlink" title="3.动态优先级"></a>3.动态优先级</h3><p>　　普通进程的实际优先级。</p>
+<p>　　对静态优先级的调整，随进程的运行状况而变化。</p>
+<p>　　取值范围：100~139（数值越小，优先级越高）</p>
+<h2 id="时间片"><a href="#时间片" class="headerlink" title="时间片"></a>时间片</h2><p>　　进程当前剩余时间。</p>
+<p>　　初始大小取决于静态优先级，优先级越高则时间片越长。</p>
+<h1 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h1><p>　　进程调度在选择进程时，首先在可执行队列中寻找当前优先级最高的进程，也就是最高优先级队列中的第一个进程。由于实时进程的优先级总是高于普通进程，所以实时进程永远优先于普通进程。</p>
+<h2 id="先进先出法（FIFO）"><a href="#先进先出法（FIFO）" class="headerlink" title="先进先出法（FIFO）"></a>先进先出法（FIFO）</h2><p>浅显易懂，不多解释。</p>
+<h2 id="时间片轮转法-RR"><a href="#时间片轮转法-RR" class="headerlink" title="时间片轮转法(RR)"></a>时间片轮转法(RR)</h2><p>　　<strong>用于实时进程</strong>。</p>
+<p>　　基本思想是给每一个实时进程分配一个时间片，然后按照他们的实时优先加入到相应的活动队列中。调度程序按优先级以此调度，具有相同优先级的进程采用轮换法，每次运行一个时间片。</p>
+<p>　　时间片的长短取决于其静态优先级。</p>
+<p>　　当一个进程的时间片用完，他就要让出CPU，重新计算时间片后加入到同一活动队列的队尾，等待下一次运行。</p>
+<p>　　RR算法也采用了优先级抢占策略：在进程的运行过程中，如果有更高优先级的实时进程就绪，则条都程序就会终止当前进程而去响应高优先级的进程。</p>
+<h2 id="普通调度算法（NORMAL）"><a href="#普通调度算法（NORMAL）" class="headerlink" title="普通调度算法（NORMAL）"></a>普通调度算法（NORMAL）</h2><p>　　<strong>用于普通进程的调度</strong>。</p>
+<p>　　每个进程拥有一个静态优先级（static_prio）和一个动态优先级（prio）。<strong>动态优先级是基于静态优先级调整得到的实际优先级，它与进程的平均睡眠时间有关，进程睡眠的时间越长则其动态优先级越高。</strong></p>
+<p>　　调整优先级的目的是为了提高对交互式进程的响应性。</p>
+<p>　　与RR类似，不同的是，NORMAL算法普通进程的时间片用完以后被转入过期队列中，要等待所有活动队列中的进程都运行完后才会获得下一轮执行机会。而RR算法的进程始终在活动队列中，直到其执行完毕，这保证了实时进程不会被比它的优先级低的进程打断。</p>
+<p>　　<strong>可以看出，RR算法注重优先级顺序，只在每级内采用轮转；而NORMAL算法注重的是轮转，在每轮中采用优先级顺序。</strong></p>
+
+    
+
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          Alvin
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.alvinspace.cn/2019/11/22/Linux的进程调度策略/" title="Linux的进程调度策略" target="_blank">https://www.alvinspace.cn/2019/11/22/Linux的进程调度策略/</a>
+        </li>
+        <li>
+          <strong>版权声明： </strong>
+          本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow" target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+        </li>
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -242,7 +323,7 @@
 		</ul>
 	</div>
 
-          
+    
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -255,287 +336,118 @@
 	</div>
 
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" target="_blank" rel="noopener" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" target="_blank" rel="noopener" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" target="_blank" rel="noopener" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;" target="_blank" rel="noopener"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.alvinspace.cn/2019/11/22/Linux%E7%9A%84%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AD%96%E7%95%A5/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/11/22/centos%E7%9B%AE%E5%BD%95%E8%AF%A6%E8%A7%A3/" class="archive-article-date">
-        <time datetime="2019-11-22T09:29:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
 
+
+<nav id="article-nav">
+  
+  
+    <a href="/2019/11/22/centos%E7%9B%AE%E5%BD%95%E8%AF%A6%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux目录</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" target="_blank" rel="noopener" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/11/22/centos%E7%9B%AE%E5%BD%95%E8%AF%A6%E8%A7%A3/">linux目录</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag article-tag-list-link color1">操作系统,Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/itnotes//" class="article-tag-list-link color3">itnotes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#抢占式和非抢占式"><span class="toc-number">1.</span> <span class="toc-text">抢占式和非抢占式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-抢占式"><span class="toc-number">1.0.1.</span> <span class="toc-text">1.抢占式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-非抢占式"><span class="toc-number">1.0.2.</span> <span class="toc-text">2.非抢占式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调度信息"><span class="toc-number">2.</span> <span class="toc-text">调度信息</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#进程分类"><span class="toc-number">2.1.</span> <span class="toc-text">进程分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-实时进程"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.实时进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-普通进程"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.普通进程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优先级"><span class="toc-number">2.2.</span> <span class="toc-text">优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-实时优先级"><span class="toc-number">2.2.1.</span> <span class="toc-text">1.实时优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-静态优先级"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.静态优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-动态优先级"><span class="toc-number">2.2.3.</span> <span class="toc-text">3.动态优先级</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间片"><span class="toc-number">2.3.</span> <span class="toc-text">时间片</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#策略"><span class="toc-number">3.</span> <span class="toc-text">策略</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#先进先出法（FIFO）"><span class="toc-number">3.1.</span> <span class="toc-text">先进先出法（FIFO）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#时间片轮转法-RR"><span class="toc-number">3.2.</span> <span class="toc-text">时间片轮转法(RR)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#普通调度算法（NORMAL）"><span class="toc-number">3.3.</span> <span class="toc-text">普通调度算法（NORMAL）</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/11/22/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/" class="archive-article-date">
-        <time datetime="2019-11-22T09:25:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/11/22/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">面向对象的七大设计原则</a>
-	
-    </h1>
-  
+        
+    </div>
+</aside>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag article-tag-list-link color3">编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/itnotes//" class="article-tag-list-link color3">itnotes</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/11/22/java8%E6%96%B0%E7%89%B9%E6%80%A7/" class="archive-article-date">
-        <time datetime="2019-11-22T08:26:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/11/22/java8%E6%96%B0%E7%89%B9%E6%80%A7/">java8新特性</a>
-	
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/itnotes//" class="article-tag-list-link color3">itnotes</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/11/22/%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-        <time datetime="2019-11-22T08:23:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/11/22/%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB/">接口和抽象类的区别</a>
-	
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/itnotes//" class="article-tag-list-link color3">itnotes</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/11/19/Java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
-        <time datetime="2019-11-19T03:09:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-19</time>
-</a>
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2019/11/19/Java%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Java基本数据类型</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" target="_blank" rel="noopener" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/itnotes//" class="article-tag-list-link color3">itnotes</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -576,8 +488,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
