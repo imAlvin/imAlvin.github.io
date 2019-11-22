@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="Alvin个人学习记录">
 <meta property="og:description" content="一、接口&amp;emsp;&amp;emsp;JDK8之后，我们可以在接口中定义 static 方法和 default 方法。在此之前，interface 里的方法只能是 public abstract。 1. static 方法 只能通过接口名调用，不可以通过实现类的类名或者实现类的对象调用。 由于 java 支持一个实现类可以实现多个接口，如果多个接口中存在同个方法名的 static 方法，此时并不会产生错">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-22T08:26:56.422Z">
+<meta property="og:updated_time" content="2019-11-22T08:31:57.317Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Alvin个人学习记录" type="application/atom+xml">
@@ -254,7 +254,9 @@
     <h2 id="一、接口"><a href="#一、接口" class="headerlink" title="一、接口"></a>一、接口</h2><p>&emsp;&emsp;JDK8之后，我们可以在接口中定义 static 方法和 default 方法。在此之前，interface 里的方法只能是 public abstract。</p>
 <h3 id="1-static-方法"><a href="#1-static-方法" class="headerlink" title="1. static 方法"></a>1. static 方法</h3><ul>
 <li>只能通过接口名调用，不可以通过实现类的类名或者实现类的对象调用。</li>
-<li>由于 java 支持一个实现类可以实现多个接口，如果多个接口中存在同个方法名的 static 方法，此时并不会产生错误，因为 jdk8 只能通过接口类调用接口中的静态方法，所以对编译器来说是可以区分的。</li>
+<li>由于 java 支持一个实现类可以实现多个接口，如果多个接口中存在同个方法名的 static 方法，此时并不会产生错误，因为 jdk8 只能通过接口类调用接口中的静态方法，所以对编译器来说是可以区分的。<a id="more"></a>
+
+</li>
 </ul>
 <h3 id="2-default-方法"><a href="#2-default-方法" class="headerlink" title="2. default 方法"></a>2. default 方法</h3><ul>
 <li>只能通过接口实现类的<strong>对象</strong>来调用。</li>
