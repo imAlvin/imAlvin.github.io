@@ -18,7 +18,7 @@
 <meta property="og:site_name" content="Alvin个人学习记录">
 <meta property="og:description" content="at,bg,fg,kill,crontab,jobs,ps,pstree,top,nice,renice,sleep,nohup at 定时运行命令作用at命令在指定时刻执行指定的命令序列。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-22T12:00:38.593Z">
+<meta property="og:updated_time" content="2019-11-22T12:04:52.650Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Alvin个人学习记录" type="application/atom+xml">
@@ -316,7 +316,7 @@
 <li>pid：要终止的进程的ID号。</li>
 <li>signal：表示信号。</li>
 </ul>
-<p>　　<strong>说明：</strong>kill可将指定的信息送至程序。预设的信息为SIGTERM（15），可将指定程序终止。若仍无法终止该程序，可使用SIGKILL（9）信息尝试强制删除程序。kill命令的工作原理是，向Linux系统的内核发送一个系统操作信号和某个程序的进程标志号，然后系统内核就可以对进程标志号指定的进程进行操作。当需要中断一个前台进程的时候，通常使用Ctrl+C组合键；但是对于一个后台进程，就不是一个组合键所能解决的了，这时就必须使用kill命令。</p>
+<p>　　<strong>说明：</strong><code>kill</code>可将指定的信息送至程序。预设的信息为SIGTERM（15），可将指定程序终止。若仍无法终止该程序，可使用SIGKILL（9）信息尝试强制删除程序。<code>kill</code>命令的工作原理是，向Linux系统的内核发送一个系统操作信号和某个程序的进程标志号，然后系统内核就可以对进程标志号指定的进程进行操作。当需要中断一个前台进程的时候，通常使用Ctrl+C组合键；但是对于一个后台进程，就不是一个组合键所能解决的了，这时就必须使用kill命令。</p>
 <h3 id="应用实例-4"><a href="#应用实例-4" class="headerlink" title="应用实例"></a>应用实例</h3><p>　　命令执行过程如果出错，用户可用“kill”来结束任务。对于在后台运行的进程，可以使用kill命令终止：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">du –a / | sort –rn &gt; /tmp/du.sorted &amp;</span><br><span class="line">[1] 237</span><br><span class="line">kill 237</span><br></pre></td></tr></table></figure>
 
@@ -325,7 +325,7 @@
 
 <p>　　对于僵尸进程，可以用<code>kill -9</code>来强制终止退出。</p>
 <p>　　kill命令族成员简介如下。</p>
-<p>　　终止一个进程或终止一个正在运行的程序，一般通过<code>kill</code>、<code>killall</code>、<code>pkill</code>、<code>xkill</code>等进行。比如一个程序已经死掉，但又不能退出，这时就应该考虑应用这些工具。<code>killall</code>通过程序的名字，直接杀死所有进程，<code>pkill</code>和<code>killall</code>的应用方法差不多，也是直接杀死运行中的程序。如果你想杀掉单个进程，请用<code>kill</code>来杀掉。<code>xkill</code>是在桌面用的杀死图形界面的程序。比如当 firefox 出现崩溃不能退出时，点鼠标就能杀死 firefox。当xkill运行时出来和个人脑骨的图标，哪个图形程序崩溃，一点就OK了。如果你想终止<code>xkill</code>，就单击右键取消。</p>
+<p>　　终止一个进程或终止一个正在运行的程序，一般通过<code>kill</code>、<code>killall</code>、<code>pkill</code>、<code>xkill</code>等进行。比如一个程序已经死掉，但又不能退出，这时就应该考虑应用这些工具。<code>killall</code>通过程序的名字，直接杀死所有进程，<code>pkill</code>和<code>killall</code>的应用方法差不多，也是直接杀死运行中的程序。如果你想杀掉单个进程，请用<code>kill</code>来杀掉。<code>xkill</code>是在桌面用的杀死图形界面的程序。比如当 firefox 出现崩溃不能退出时，点鼠标就能杀死 firefox。当<code>xkill</code>运行时出来和个人脑骨的图标，哪个图形程序崩溃，一点就OK了。如果你想终止<code>xkill</code>，就单击右键取消。</p>
 <h2 id="crontab命令"><a href="#crontab命令" class="headerlink" title="crontab命令"></a>crontab命令</h2><h3 id="作用-5"><a href="#作用-5" class="headerlink" title="作用"></a>作用</h3><p>crontab命令用于安装、删除或者列出用于驱动cron后台进程的任务表。然后，该配置由cron守护进程在设定的时间执行。</p>
 <h3 id="格式-5"><a href="#格式-5" class="headerlink" title="格式"></a>格式</h3><ul>
 <li>crontab [-u user] 文件</li>
