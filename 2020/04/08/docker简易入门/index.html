@@ -10,19 +10,19 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="引言Docker是什么Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。 Docker 使用 Google 公司推出的 Go 语言 进行开发实现。 docker是linux容器的一种封装，提供简单易用的容器使用接口。它是最流行的L">
+  <meta name="description" content="引言Docker是什么Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。 Docker 使用 Google 公司推出的 Go 语言 进行开发实现。">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker简易入门">
 <meta property="og:url" content="https:&#x2F;&#x2F;www.alvinspace.cn&#x2F;2020&#x2F;04&#x2F;08&#x2F;docker%E7%AE%80%E6%98%93%E5%85%A5%E9%97%A8&#x2F;index.html">
 <meta property="og:site_name" content="Alvin个人学习记录">
-<meta property="og:description" content="引言Docker是什么Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。 Docker 使用 Google 公司推出的 Go 语言 进行开发实现。 docker是linux容器的一种封装，提供简单易用的容器使用接口。它是最流行的L">
+<meta property="og:description" content="引言Docker是什么Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。 Docker 使用 Google 公司推出的 Go 语言 进行开发实现。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.postimg.cc&#x2F;HsSGkCZn&#x2F;image.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.postimg.cc&#x2F;025RvNCh&#x2F;image.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.postimg.cc&#x2F;kMv3LSWx&#x2F;Docker.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;i.postimg.cc&#x2F;s218M8z5&#x2F;docker.png">
-<meta property="og:updated_time" content="2020-04-08T14:03:47.390Z">
+<meta property="og:updated_time" content="2020-04-08T14:41:55.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;i.postimg.cc&#x2F;HsSGkCZn&#x2F;image.jpg">
   
@@ -258,38 +258,48 @@
     
     <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><h2 id="Docker是什么"><a href="#Docker是什么" class="headerlink" title="Docker是什么"></a>Docker是什么</h2><p>Docker 最初是 dotCloud 公司创始人 Solomon Hykes 在法国期间发起的一个公司内部项目，于 2013 年 3 月以 Apache 2.0 授权协议开源，主要项目代码在 GitHub 上进行维护。</p>
 <p>Docker 使用 Google 公司推出的 <strong>Go 语言</strong> 进行开发实现。</p>
+<a id="more"></a>
 <p>docker是linux容器的一种封装，提供简单易用的容器使用接口。它是最流行的Linux容器解决方案。</p>
 <p>docker的接口相当简单，用户可以方便的创建、销毁容器。</p>
 <p>docker将应用程序与程序的依赖，打包在一个文件里面。运行这个文件就会生成一个虚拟容器。</p>
 <p>程序运行在虚拟容器里，如同在真实物理机上运行一样，有了docker，就不用担心环境问题了。</p>
-<a id="more"></a>
 <h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
-<li>web应用的自动化打包和发布</li>
-<li></li>
-<li>自动化测试和持续集成、发布</li>
-<li></li>
-<li>在服务型环境中部署和调整数据库或其他应用<h2 id="物理机、虚拟机、Docker容器之间的区别"><a href="#物理机、虚拟机、Docker容器之间的区别" class="headerlink" title="物理机、虚拟机、Docker容器之间的区别"></a>物理机、虚拟机、Docker容器之间的区别</h2><h3 id="物理机"><a href="#物理机" class="headerlink" title="物理机"></a>物理机</h3><img src="https://i.postimg.cc/HsSGkCZn/image.jpg" alt=""><br>一栋楼一户人家，独立地基，独立花园<h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><img src="https://i.postimg.cc/025RvNCh/image.jpg" alt=""><br>一栋楼包含多套房，一套房一户人家，共享地基，共享花园，独立卫生间、厨房、宽带<h3 id="docker容器"><a href="#docker容器" class="headerlink" title="docker容器"></a>docker容器</h3><img src="https://i.postimg.cc/kMv3LSWx/Docker.jpg" alt=""><br>一套房隔成多个小隔间（胶囊式公寓），每个胶囊住一位租户，共享地基，共享花园，还共享卫生间、厨房和宽带<br><img src="https://i.postimg.cc/s218M8z5/docker.png" alt=""><h2 id="Docker的三大概念"><a href="#Docker的三大概念" class="headerlink" title="Docker的三大概念"></a>Docker的三大概念</h2></li>
+<li><p>web应用的自动化打包和发布</p>
+</li>
+<li><p>自动化测试和持续集成、发布</p>
+</li>
+<li><p>在服务型环境中部署和调整数据库或其他应用</p>
+</li>
+</ul>
+<h2 id="物理机、虚拟机、Docker容器之间的区别"><a href="#物理机、虚拟机、Docker容器之间的区别" class="headerlink" title="物理机、虚拟机、Docker容器之间的区别"></a>物理机、虚拟机、Docker容器之间的区别</h2><h3 id="物理机"><a href="#物理机" class="headerlink" title="物理机"></a>物理机</h3><p><img src="https://i.postimg.cc/HsSGkCZn/image.jpg" alt=""><br>一栋楼一户人家，独立地基，独立花园</p>
+<h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><p><img src="https://i.postimg.cc/025RvNCh/image.jpg" alt=""><br>一栋楼包含多套房，一套房一户人家，共享地基，共享花园，独立卫生间、厨房、宽带</p>
+<h3 id="docker容器"><a href="#docker容器" class="headerlink" title="docker容器"></a>docker容器</h3><p><img src="https://i.postimg.cc/kMv3LSWx/Docker.jpg" alt=""><br>一套房隔成多个小隔间（胶囊式公寓），每个胶囊住一位租户，共享地基，共享花园，还共享卫生间、厨房和宽带<br><img src="https://i.postimg.cc/s218M8z5/docker.png" alt=""></p>
+<h2 id="Docker的三大概念"><a href="#Docker的三大概念" class="headerlink" title="Docker的三大概念"></a>Docker的三大概念</h2><ul>
 <li>镜像 image</li>
 <li>容器 container</li>
-<li>仓库 repository<h2 id="Docker容器的优势"><a href="#Docker容器的优势" class="headerlink" title="Docker容器的优势"></a>Docker容器的优势</h2>1、更高效的利用系统资源</li>
+<li>仓库 repository</li>
 </ul>
+<h2 id="Docker容器的优势"><a href="#Docker容器的优势" class="headerlink" title="Docker容器的优势"></a>Docker容器的优势</h2><p><strong>1、更高效的利用系统资源</strong></p>
 <p>由于容器不需要进行硬件虚拟以及运行完整操作系统等额外开销，Docker 对系统资源的利用率更高。</p>
 <p>无论是应用执行速度、内存损耗或者文件存储速度，都要比传统虚拟机技术更高效。因此，相比虚拟机技术，一个相同配置的主机，往往可以运行更多数量的应用。</p>
-<p>2、更快速的启动时间</p>
+<p><strong>2、更快速的启动时间</strong></p>
 <p>传统的虚拟机技术启动应用服务往往需要数分钟，而 Docker 容器应用，由于直接运行于宿主内核，无需启动完整的操作系统，因此可以做到秒级、甚至毫秒级的启 动时间。大大的节约了开发、测试、部署的时间。</p>
-<p>3、一致的运行环境</p>
+<p><strong>3、一致的运行环境</strong></p>
 <p>开发过程中一个常见的问题是环境一致性问题。由于开发环境、测试环境、生产环境不一致，导致有些 bug 并未在开发过程中被发现。</p>
 <p>而 Docker 的镜像提供了除内 核外完整的运行时环境，确保了应用运行环境一致性，从而不会再出现 “这段代码在我机器上没问题啊” 这类问题。</p>
-<p>4、持续交付和部署</p>
+<p><strong>4、持续交付和部署</strong></p>
 <p>对开发和运维(DevOps)人员来说，最希望的就是一次创建或配置，可以在任意地方正常运行。</p>
 <p>使用 Docker 可以通过定制应用镜像来实现持续集成、持续交付、部署。开发人员 可以通过 Dockerfile 来进行镜像构建，并结合持续集成(Continuous Integration) 系 统进行集成测试，而运维人员则可以直接在生产环境中快速部署该镜像，甚至结合 持续部署 (Continuous Delivery/Deployment) 系统进行自动部署。</p>
 <p>而且使用 Dockerfile 使镜像构建透明化，不仅仅开发团队可以理解应用运行环境，也方便运维团队理解应用运行所需条件，帮助更好的生产环境中部署该镜像。</p>
-<p>5、更轻松的迁移</p>
+<p><strong>5、更轻松的迁移</strong></p>
 <p>由于 Docker 确保了执行环境的一致性，使得应用的迁移更加容易。Docker 可以在 很多平台上运行，无论是物理机、虚拟机、公有云、私有云，甚至是笔记本，其运行结果是一致的。</p>
 <p>因此用户可以很轻易的将在一个平台上运行的应用，迁移到另一 个平台上，而不用担心运行环境的变化导致应用无法正常运行的情况。</p>
 <h1 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h1><p>系统环境：docker最低支持centos7且在64位平台上，内核版本在3.10以上</p>
 <p>版本：社区版，企业版（包含了一些收费服务）</p>
-<p>官方版安装教程（英文）<br><a href="https://docs.docker.com/install/linux/docker-ce/centos/#upgrade-docker-after-using-the-convenience-script" target="_blank" rel="noopener" title="官方安装教程">https://docs.docker.com/install/linux/docker-ce/centos/#upgrade-docker-after-using-the-convenience-script</a></p>
+<p>官方版安装教程（英文）</p>
+<blockquote>
+<p><a href="https://docs.docker.com/install/linux/docker-ce/centos/#upgrade-docker-after-using-the-convenience-script" target="_blank" rel="noopener" title="官方安装教程">https://docs.docker.com/install/linux/docker-ce/centos/#upgrade-docker-after-using-the-convenience-script</a></p>
+</blockquote>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install docker # 安装dokcer</span><br><span class="line">systemctl start docker # 启动docker</span><br><span class="line">systemctl status docker # 查看docker状态</span><br><span class="line">docker version # 查看docer版本</span><br></pre></td></tr></table></figure>
 <p><strong>配置加速器</strong></p>
 <p>简介：DaoCloud 加速器 是广受欢迎的 Docker 工具，解决了国内用户访问 Docker Hub 缓慢的问题。DaoCloud 加速器结合国内的 CDN 服务与协议层优化，成倍的提升了下载速度。</p>
